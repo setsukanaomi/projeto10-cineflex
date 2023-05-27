@@ -1,9 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-axios.defaults.headers.common["Authorization"] = "S9MCvPEMcZLtoXxXAYQIgpif";
 
 export default function SeatsPage() {
   const { idSessao } = useParams();
@@ -14,6 +12,20 @@ export default function SeatsPage() {
   const [dia, setDia] = useState([]);
   const [filme, setFilme] = useState([]);
   const [hora, setHora] = useState([]);
+  const [selecionado, setSelecionado] = useState([]);
+
+  const handleAssento = (assento) => {
+    if (!assento.isAvailable) {
+      return;
+    }
+    setSelecionado((prevAssentosSelecionados) => {
+      if (prevAssentosSelecionados.some((s) => s.id === assento.id)) {
+        return prevAssentosSelecionados.filter((s) => s.id !== assento.id);
+      } else {
+        return [...prevAssentosSelecionados, assento];
+      }
+    });
+  };
 
   useEffect(() => {
     const promise = axios.get(url);
@@ -25,28 +37,35 @@ export default function SeatsPage() {
       setHora(assentos.data);
     });
   }, [url]);
-
+  console.log(selecionado);
   return (
     <PageContainer>
       Selecione o(s) assento(s)
       <SeatsContainer>
         {assentos.map((assento) => (
-          <SeatItem data-test="seat" key={assento.id}>
+          <SeatItem
+            disabled={!assento.isAvailable}
+            isAvailable={assento.isAvailable}
+            data-test="seat"
+            key={assento.id}
+            onClick={() => handleAssento(assento)}
+            isSelected={selecionado.some((s) => s.id === assento.id)}
+          >
             {assento.name}
           </SeatItem>
         ))}
       </SeatsContainer>
       <CaptionContainer>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isSelected={true} />
           Selecionado
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={true} />
           Disponível
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={false} />
           Indisponível
         </CaptionItem>
       </CaptionContainer>
@@ -84,6 +103,7 @@ const PageContainer = styled.div`
   padding-bottom: 120px;
   padding-top: 70px;
 `;
+
 const SeatsContainer = styled.div`
   width: 330px;
   display: flex;
@@ -93,6 +113,7 @@ const SeatsContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+
 const FormContainer = styled.div`
   width: calc(100vw - 40px);
   display: flex;
@@ -107,6 +128,7 @@ const FormContainer = styled.div`
     width: calc(100vw - 60px);
   }
 `;
+
 const CaptionContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -114,9 +136,10 @@ const CaptionContainer = styled.div`
   justify-content: space-between;
   margin: 20px;
 `;
+
 const CaptionCircle = styled.div`
-  border: 1px solid blue; // Essa cor deve mudar
-  background-color: lightblue; // Essa cor deve mudar
+  border: 1px solid ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+  background-color: ${({ isAvailable }) => (isAvailable ? "#C3CFD9" : "#FBE192")};
   height: 25px;
   width: 25px;
   border-radius: 25px;
@@ -124,18 +147,27 @@ const CaptionCircle = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      border: 1px solid #0e7d71;
+      background-color: #1aae9e;
+    `}
 `;
+
 const CaptionItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 12px;
 `;
+
 const SeatItem = styled.div`
-  border: 1px solid blue; // Essa cor deve mudar
-  background-color: lightblue; // Essa cor deve mudar
+  border: 1px solid ${({ isAvailable }) => (isAvailable ? "#7B8B99" : "#F7C52B")};
+  background-color: ${({ isAvailable }) => (isAvailable ? "#C3CFD9" : "#FBE192")};
   height: 25px;
   width: 25px;
+  cursor: ${({ isAvailable }) => (isAvailable ? "pointer" : "not-allowed")};
   border-radius: 25px;
   font-family: "Roboto";
   font-size: 11px;
@@ -143,7 +175,14 @@ const SeatItem = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
+  ${({ isSelected }) =>
+    isSelected &&
+    css`
+      border: 1px solid #0e7d71;
+      background-color: #1aae9e;
+    `}
 `;
+
 const FooterContainer = styled.div`
   width: 100%;
   height: 120px;

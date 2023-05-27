@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-axios.defaults.headers.common["Authorization"] = "S9MCvPEMcZLtoXxXAYQIgpif";
-
 export default function SessionsPage() {
   const { idFilme } = useParams();
   const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
@@ -18,7 +16,6 @@ export default function SessionsPage() {
     promise.then((filme) => {
       setSessions(filme.data);
       setDays(filme.data.days);
-      console.log(filme.data);
     });
   }, [url]);
   return (
