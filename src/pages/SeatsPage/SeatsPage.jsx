@@ -3,10 +3,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+axios.defaults.headers.common["Authorization"] = "S9MCvPEMcZLtoXxXAYQIgpif";
+
 export default function SeatsPage() {
   const { idSessao } = useParams();
-  console.log(idSessao);
+
   const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
+
   const [assentos, setAssentos] = useState([]);
   const [dia, setDia] = useState([]);
   const [filme, setFilme] = useState([]);
@@ -14,7 +17,6 @@ export default function SeatsPage() {
 
   useEffect(() => {
     const promise = axios.get(url);
-    console.log(promise);
 
     promise.then((assentos) => {
       setAssentos(assentos.data.seats);
@@ -23,12 +25,15 @@ export default function SeatsPage() {
       setHora(assentos.data);
     });
   }, [url]);
+
   return (
     <PageContainer>
       Selecione o(s) assento(s)
       <SeatsContainer>
         {assentos.map((assento) => (
-          <SeatItem key={assento.id}>{assento.name}</SeatItem>
+          <SeatItem data-test="seat" key={assento.id}>
+            {assento.name}
+          </SeatItem>
         ))}
       </SeatsContainer>
       <CaptionContainer>
@@ -47,12 +52,12 @@ export default function SeatsPage() {
       </CaptionContainer>
       <FormContainer>
         Nome do Comprador:
-        <input placeholder="Digite seu nome..." />
+        <input data-test="client-name" placeholder="Digite seu nome..." />
         CPF do Comprador:
-        <input placeholder="Digite seu CPF..." />
-        <button>Reservar Assento(s)</button>
+        <input data-test="client-cpf" placeholder="Digite seu CPF..." />
+        <button data-test="book-seat-btn">Reservar Assento(s)</button>
       </FormContainer>
-      <FooterContainer>
+      <FooterContainer data-test="footer">
         <div>
           <img src={filme.posterURL} alt="poster" />
         </div>
