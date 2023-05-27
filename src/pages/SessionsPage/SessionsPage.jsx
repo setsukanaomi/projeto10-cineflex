@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 axios.defaults.headers.common["Authorization"] = "S9MCvPEMcZLtoXxXAYQIgpif";
 
@@ -28,8 +29,12 @@ export default function SessionsPage() {
           <SessionContainer key={day.id}>
             {day.weekday} - {day.date}
             <ButtonsContainer>
-              <button>{day.showtimes[0].name}</button>
-              <button>{day.showtimes[1].name}</button>
+              <Link to={`/assentos/${day.showtimes[0].id}`}>
+                <button>{day.showtimes[0].name}</button>
+              </Link>
+              <Link to={`/assentos/${day.showtimes[1].id}`}>
+                <button>{day.showtimes[1].name}</button>
+              </Link>
             </ButtonsContainer>
           </SessionContainer>
         ))}
