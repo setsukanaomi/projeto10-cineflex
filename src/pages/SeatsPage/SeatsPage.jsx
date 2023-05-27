@@ -16,6 +16,7 @@ export default function SeatsPage() {
 
   const handleAssento = (assento) => {
     if (!assento.isAvailable) {
+      alert("Assento indisponível!");
       return;
     }
     setSelecionado((prevAssentosSelecionados) => {
