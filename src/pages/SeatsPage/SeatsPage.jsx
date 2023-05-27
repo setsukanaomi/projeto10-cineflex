@@ -72,9 +72,9 @@ export default function SeatsPage() {
       </CaptionContainer>
       <FormContainer>
         Nome do Comprador:
-        <input data-test="client-name" placeholder="Digite seu nome..." />
+        <input required pattern="^[A-Za-z]+$" data-test="client-name" placeholder="Digite seu nome..." />
         CPF do Comprador:
-        <input data-test="client-cpf" placeholder="Digite seu CPF..." />
+        <input required pattern="^\d+$" data-test="client-cpf" placeholder="Digite seu CPF..." />
         <button data-test="book-seat-btn">Reservar Assento(s)</button>
       </FormContainer>
       <FooterContainer data-test="footer">
