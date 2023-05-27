@@ -71,11 +71,13 @@ export default function SeatsPage() {
         </CaptionItem>
       </CaptionContainer>
       <FormContainer>
-        Nome do Comprador:
-        <input required pattern="^[A-Za-z]+$" data-test="client-name" placeholder="Digite seu nome..." />
-        CPF do Comprador:
-        <input required pattern="^\d+$" data-test="client-cpf" placeholder="Digite seu CPF..." />
-        <button data-test="book-seat-btn">Reservar Assento(s)</button>
+        <form>
+          Nome do Comprador:
+          <input required type="text" pattern="^[A-Za-z]+$" data-test="client-name" placeholder="Digite seu nome..." />
+          CPF do Comprador:
+          <input required type="number" pattern="^\d+$" data-test="client-cpf" placeholder="Digite seu CPF..." />
+          <button data-test="book-seat-btn">Reservar Assento(s)</button>
+        </form>
       </FormContainer>
       <FooterContainer data-test="footer">
         <div>
