@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 axios.defaults.headers.common["Authorization"] = "S9MCvPEMcZLtoXxXAYQIgpif";
 
@@ -22,9 +23,11 @@ export default function HomePage() {
       Selecione o filme
       <ListContainer>
         {filmes.map((filme) => (
-          <MovieContainer key={filme.id}>
-            <img src={filme.posterURL}></img>
-          </MovieContainer>
+          <Link key={filme.id} to={`/sessoes/${filme.id}`}>
+            <MovieContainer>
+              <img src={filme.posterURL}></img>
+            </MovieContainer>
+          </Link>
         ))}
       </ListContainer>
     </PageContainer>
