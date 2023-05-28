@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Submit from "../../components/Submit";
 
 export default function SeatsPage() {
   const { idSessao } = useParams();
@@ -38,7 +39,7 @@ export default function SeatsPage() {
       setHora(assentos.data);
     });
   }, [url]);
-  console.log(selecionado);
+
   return (
     <PageContainer>
       Selecione o(s) assento(s)
@@ -71,13 +72,7 @@ export default function SeatsPage() {
         </CaptionItem>
       </CaptionContainer>
       <FormContainer>
-        <form>
-          Nome do Comprador:
-          <input required type="text" pattern="^[A-Za-z]+$" data-test="client-name" placeholder="Digite seu nome..." />
-          CPF do Comprador:
-          <input required type="number" pattern="^\d+$" data-test="client-cpf" placeholder="Digite seu CPF..." />
-          <button data-test="book-seat-btn">Reservar Assento(s)</button>
-        </form>
+        <Submit selecionados={selecionado} />
       </FormContainer>
       <FooterContainer data-test="footer">
         <div>
