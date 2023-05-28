@@ -15,6 +15,12 @@ export default function Submit(props) {
     cpf: cpf,
   };
 
+  const apenasNumerosCpf = (e) => {
+    const value = e.target.value;
+    const formattedValue = value.replace(/\D/g, "");
+    setCpf(formattedValue);
+  };
+
   const assentos = props.selecionados.map((assento) => assento.name);
   const data = props.date;
   const filme = props.filme;
@@ -24,7 +30,6 @@ export default function Submit(props) {
     event.preventDefault();
     const url = `https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many`;
     const promise = axios.post(url, dados);
-    console.log(promise);
 
     promise.then(() => {
       navigate("/sucesso", { state: { data, assentos, nome, cpf, filme, hora } });
@@ -46,11 +51,10 @@ export default function Submit(props) {
       <label htmlFor="cpf">CPF do Comprador:</label>
       <input
         required
-        type="number"
         id="cpf"
         value={cpf}
         maxLength={11}
-        onChange={(e) => setCpf(e.target.value)}
+        onChange={apenasNumerosCpf}
         pattern="^\d+$"
         data-test="client-cpf"
         placeholder="Digite seu CPF..."

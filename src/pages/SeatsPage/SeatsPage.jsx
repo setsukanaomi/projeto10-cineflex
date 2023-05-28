@@ -72,7 +72,7 @@ export default function SeatsPage() {
         </CaptionItem>
       </CaptionContainer>
       <FormContainer>
-        <Submit selecionados={selecionado} weekday={dia.weekday} date={dia.date} filme={filme.title} />
+        <Submit selecionados={selecionado} weekday={dia.weekday} date={dia.date} filme={filme.title} hora={hora.name} />
       </FormContainer>
       <FooterContainer data-test="footer">
         <div>
@@ -184,7 +184,8 @@ const SeatItem = styled.div`
 const FooterContainer = styled.div`
   width: 100%;
   height: 120px;
-  background-color: #c3cfd9;
+  background-color: #dfe6ed;
+  border: 1px solid #9eadba;
   display: flex;
   flex-direction: row;
   align-items: center;

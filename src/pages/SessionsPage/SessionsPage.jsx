@@ -85,7 +85,8 @@ const ButtonsContainer = styled.div`
 const FooterContainer = styled.div`
   width: 100%;
   height: 120px;
-  background-color: #c3cfd9;
+  background-color: #dfe6ed;
+  border: 1px solid #9eadba;
   display: flex;
   flex-direction: row;
   align-items: center;
