@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Submit from "../../components/Submit";
+import Return from "../../components/Return";
 
 export default function SeatsPage() {
   const { idSessao } = useParams();
@@ -42,6 +43,7 @@ export default function SeatsPage() {
 
   return (
     <PageContainer>
+      <Return />
       Selecione o(s) assento(s)
       <SeatsContainer>
         {assentos.map((assento) => (

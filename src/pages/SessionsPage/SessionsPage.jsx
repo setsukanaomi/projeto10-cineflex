@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Return from "../../components/Return";
 
 export default function SessionsPage() {
   const { idFilme } = useParams();
@@ -20,6 +21,7 @@ export default function SessionsPage() {
   }, [url]);
   return (
     <PageContainer>
+      <Return />
       Selecione o horário
       <div>
         {days.map((day) => (
