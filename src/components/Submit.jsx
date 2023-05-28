@@ -37,32 +37,34 @@ export default function Submit(props) {
   }
 
   return (
-    <form onSubmit={enviarSubmit}>
-      <label htmlFor="nome">Nome do Comprador:</label>
-      <input
-        required
-        type="text"
-        id="nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-        data-test="client-name"
-        placeholder="Digite seu nome..."
-      />
-      <label htmlFor="cpf">CPF do Comprador:</label>
-      <input
-        required
-        id="cpf"
-        value={cpf}
-        maxLength={11}
-        onChange={apenasNumerosCpf}
-        pattern="^\d+$"
-        data-test="client-cpf"
-        placeholder="Digite seu CPF..."
-      />
-      <ReservarBotao type="submit" data-test="book-seat-btn">
-        Reservar Assento(s)
-      </ReservarBotao>
-    </form>
+    <FormContainer>
+      <form onSubmit={enviarSubmit}>
+        <label htmlFor="nome">Nome do Comprador:</label>
+        <input
+          required
+          type="text"
+          id="nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          data-test="client-name"
+          placeholder="Digite seu nome..."
+        />
+        <label htmlFor="cpf">CPF do Comprador:</label>
+        <input
+          required
+          id="cpf"
+          value={cpf}
+          maxLength={11}
+          onChange={apenasNumerosCpf}
+          pattern="^\d+$"
+          data-test="client-cpf"
+          placeholder="Digite seu CPF..."
+        />
+        <ReservarBotao type="submit" data-test="book-seat-btn">
+          Reservar Assento(s)
+        </ReservarBotao>
+      </form>
+    </FormContainer>
   );
 }
 
@@ -74,4 +76,20 @@ const ReservarBotao = styled.button`
   border: none;
   width: 225px;
   height: 42px;
+`;
+
+const FormContainer = styled.div`
+  width: calc(100vw - 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px 0;
+  font-size: 18px;
+  button {
+    align-self: center;
+    margin: auto;
+  }
+  input {
+    width: calc(100vw - 60px);
+  }
 `;

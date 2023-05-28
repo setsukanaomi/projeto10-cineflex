@@ -71,9 +71,7 @@ export default function SeatsPage() {
           Indisponível
         </CaptionItem>
       </CaptionContainer>
-      <FormContainer>
-        <Submit selecionados={selecionado} weekday={dia.weekday} date={dia.date} filme={filme.title} hora={hora.name} />
-      </FormContainer>
+      <Submit selecionados={selecionado} weekday={dia.weekday} date={dia.date} filme={filme.title} hora={hora.name} />
       <FooterContainer data-test="footer">
         <div>
           <img src={filme.posterURL} alt="poster" />
@@ -110,21 +108,6 @@ const SeatsContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-`;
-
-const FormContainer = styled.div`
-  width: calc(100vw - 40px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 20px 0;
-  font-size: 18px;
-  button {
-    align-self: center;
-  }
-  input {
-    width: calc(100vw - 60px);
-  }
 `;
 
 const CaptionContainer = styled.div`
