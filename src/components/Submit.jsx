@@ -1,17 +1,38 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Submit(props) {
+  const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const ids = props.selecionados.map((assento) => assento.id);
-  console.log(ids);
-  console.log(nome);
-  console.log(cpf);
+  const dados = {
+    ids: ids,
+    name: nome,
+    cpf: cpf,
+  };
+
+  const assentos = props.selecionados.map((assento) => assento.name);
+  const data = props.date;
+  const filme = props.filme;
+  const hora = props.hora;
+
+  function enviarSubmit(event) {
+    event.preventDefault();
+    const url = `https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many`;
+    const promise = axios.post(url, dados);
+    console.log(promise);
+
+    promise.then(() => {
+      navigate("/sucesso", { state: { data, assentos, nome, cpf, filme, hora } });
+    });
+  }
 
   return (
-    <form>
+    <form onSubmit={enviarSubmit}>
       <label htmlFor="nome">Nome do Comprador:</label>
       <input
         required
@@ -28,6 +49,7 @@ export default function Submit(props) {
         type="number"
         id="cpf"
         value={cpf}
+        maxLength={11}
         onChange={(e) => setCpf(e.target.value)}
         pattern="^\d+$"
         data-test="client-cpf"

@@ -72,7 +72,7 @@ export default function SeatsPage() {
         </CaptionItem>
       </CaptionContainer>
       <FormContainer>
-        <Submit selecionados={selecionado} />
+        <Submit selecionados={selecionado} weekday={dia.weekday} date={dia.date} filme={filme.title} />
       </FormContainer>
       <FooterContainer data-test="footer">
         <div>
